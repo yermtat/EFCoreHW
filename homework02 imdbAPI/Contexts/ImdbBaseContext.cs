@@ -19,6 +19,6 @@ public class ImdbBaseContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(ConnectionService.GetConnection());
+        optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=ImdbBase;Integrated Security=True;Trust Server Certificate=True;");
     }
 }

@@ -46,7 +46,7 @@ public class Result
     public string Id { get; set; }
 
     [ForeignKey("Image")]
-    public int ImageId { get; set; }
+    public string ImageId { get; set; }
     [JsonPropertyName("image")]
     public Image Image { get; set; }
 
@@ -197,12 +197,15 @@ public class Principal
     }
 
     [ForeignKey("Result")]
-    public int ResultId { get; set; }
+    public string ResultId { get; set; }
     public Result Result { get; set; }
 }
 
 public class Role
 {
+    [Key]
+    public int RoleId { get; set; }
+
     [JsonPropertyName("character")]
     public string Character { get; set; }
 
@@ -210,7 +213,7 @@ public class Role
     public string CharacterId { get; set; }
 
     [ForeignKey("Principal")]
-    public int PrincipalId { get; set; }
+    public string PrincipalId { get; set; }
     public Principal Principal { get; set; }
 }
 
