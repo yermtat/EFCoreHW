@@ -5,14 +5,13 @@
 namespace homework02_imdbAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class Third : Migration
+    public partial class First : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-
             migrationBuilder.CreateTable(
-                name: "Images",
+                name: "Image",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -22,11 +21,25 @@ namespace homework02_imdbAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Images", x => x.Id);
+                    table.PrimaryKey("PK_Image", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Parenttitles",
+                name: "Image1",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Height = table.Column<int>(type: "int", nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Width = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Image1", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Parenttitle",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -37,7 +50,12 @@ namespace homework02_imdbAPI.Migrations
                 },
                 constraints: table =>
                 {
-
+                    table.PrimaryKey("PK_Parenttitle", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Parenttitle_Image1_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Image1",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -45,39 +63,37 @@ namespace homework02_imdbAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ImageId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ImageId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     RunningTimeInMinutes = table.Column<int>(type: "int", nullable: false),
-                    NextEpisode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NumberOfEpisodes = table.Column<int>(type: "int", nullable: false),
-                    SeriesEndYear = table.Column<int>(type: "int", nullable: false),
-                    SeriesStartYear = table.Column<int>(type: "int", nullable: false),
+                    NextEpisode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NumberOfEpisodes = table.Column<int>(type: "int", nullable: true),
+                    SeriesEndYear = table.Column<int>(type: "int", nullable: true),
+                    SeriesStartYear = table.Column<int>(type: "int", nullable: true),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TitleType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Year = table.Column<int>(type: "int", nullable: false),
-                    Episode = table.Column<int>(type: "int", nullable: false),
-                    Season = table.Column<int>(type: "int", nullable: false),
+                    Episode = table.Column<int>(type: "int", nullable: true),
+                    Season = table.Column<int>(type: "int", nullable: true),
                     ParentTitleId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    PreviousEpisode = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    PreviousEpisode = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Results", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Results_Images_ImageId",
+                        name: "FK_Results_Image_ImageId",
                         column: x => x.ImageId,
-                        principalTable: "Images",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "Image",
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Results_Parenttitles_ParentTitleId",
+                        name: "FK_Results_Parenttitle_ParentTitleId",
                         column: x => x.ParentTitleId,
-                        principalTable: "Parenttitles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "Parenttitle",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Principals",
+                name: "Principal",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -85,50 +101,51 @@ namespace homework02_imdbAPI.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Characters = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EndYear = table.Column<int>(type: "int", nullable: false),
-                    EpisodeCount = table.Column<int>(type: "int", nullable: false),
-                    StartYear = table.Column<int>(type: "int", nullable: false),
-                    Attr = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EndYear = table.Column<int>(type: "int", nullable: true),
+                    EpisodeCount = table.Column<int>(type: "int", nullable: true),
+                    StartYear = table.Column<int>(type: "int", nullable: true),
+                    Attr = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Billing = table.Column<int>(type: "int", nullable: false),
-                    Disambiguation = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    As = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ResultId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    Disambiguation = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    As = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ResultId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Principals", x => x.Id);
+                    table.PrimaryKey("PK_Principal", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Principals_Results_ResultId",
+                        name: "FK_Principal_Results_ResultId",
                         column: x => x.ResultId,
                         principalTable: "Results",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Roles",
+                name: "Role",
                 columns: table => new
                 {
-                    RoleId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CharacterId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Character = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CharacterId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PrincipalId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    PrincipalId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Roles", x => x.RoleId);
+                    table.PrimaryKey("PK_Role", x => x.CharacterId);
                     table.ForeignKey(
-                        name: "FK_Roles_Principals_PrincipalId",
+                        name: "FK_Role_Principal_PrincipalId",
                         column: x => x.PrincipalId,
-                        principalTable: "Principals",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "Principal",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Principals_ResultId",
-                table: "Principals",
+                name: "IX_Parenttitle_ImageId",
+                table: "Parenttitle",
+                column: "ImageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Principal_ResultId",
+                table: "Principal",
                 column: "ResultId");
 
             migrationBuilder.CreateIndex(
@@ -142,8 +159,8 @@ namespace homework02_imdbAPI.Migrations
                 column: "ParentTitleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Roles_PrincipalId",
-                table: "Roles",
+                name: "IX_Role_PrincipalId",
+                table: "Role",
                 column: "PrincipalId");
         }
 
@@ -151,19 +168,22 @@ namespace homework02_imdbAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Roles");
+                name: "Role");
 
             migrationBuilder.DropTable(
-                name: "Principals");
+                name: "Principal");
 
             migrationBuilder.DropTable(
                 name: "Results");
 
             migrationBuilder.DropTable(
-                name: "Images");
+                name: "Image");
 
             migrationBuilder.DropTable(
-                name: "Parenttitles");
+                name: "Parenttitle");
+
+            migrationBuilder.DropTable(
+                name: "Image1");
         }
     }
 }

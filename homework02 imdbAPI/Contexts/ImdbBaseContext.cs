@@ -12,10 +12,6 @@ namespace homework02_imdbAPI.Contexts;
 public class ImdbBaseContext : DbContext
 {
     public DbSet<Result> Results { get; set; }
-    public DbSet<Image> Images { get; set; }
-    public DbSet<Principal> Principals { get; set; }
-    public DbSet<Role> Roles { get; set; }
-    public DbSet<Parenttitle> Parenttitles { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

@@ -42,11 +42,8 @@ public class Meta
 public class Result
 {
     [JsonPropertyName("id")]
-    [Key]
     public string Id { get; set; }
 
-    [ForeignKey("Image")]
-    public string ImageId { get; set; }
     [JsonPropertyName("image")]
     public Image Image { get; set; }
 
@@ -54,16 +51,16 @@ public class Result
     public int RunningTimeInMinutes { get; set; }
 
     [JsonPropertyName("nextEpisode")]
-    public string NextEpisode { get; set; }
+    public string? NextEpisode { get; set; }
 
     [JsonPropertyName("numberOfEpisodes")]
-    public int NumberOfEpisodes { get; set; }
+    public int? NumberOfEpisodes { get; set; }
 
     [JsonPropertyName("seriesEndYear")]
-    public int SeriesEndYear { get; set; }
+    public int? SeriesEndYear { get; set; }
 
     [JsonPropertyName("seriesStartYear")]
-    public int SeriesStartYear { get; set; }
+    public int? SeriesStartYear { get; set; }
 
     [JsonPropertyName("title")]
     public string Title { get; set; }
@@ -79,16 +76,16 @@ public class Result
     public ICollection<Principal> Principals { get; set; }
 
     [JsonPropertyName("episode")]
-    public int Episode { get; set; }
+    public int? Episode { get; set; }
 
     [JsonPropertyName("season")]
-    public int Season { get; set; }
+    public int? Season { get; set; }
 
     [JsonPropertyName("parentTitle")]
     public Parenttitle ParentTitle { get; set; }
 
     [JsonPropertyName("previousEpisode")]
-    public string PreviousEpisode { get; set; }
+    public string? PreviousEpisode { get; set; }
 
     public override string ToString()
     {
@@ -103,7 +100,6 @@ public class Image
     public int Height { get; set; }
 
     [JsonPropertyName("id")]
-    [Key]
     public string Id { get; set; }
 
     [JsonPropertyName("url")]
@@ -111,7 +107,6 @@ public class Image
 
     [JsonPropertyName("width")]
     public int Width { get; set; }
-    public ICollection<Result> Results { get; set; }
 }
 
 public class Parenttitle
@@ -150,7 +145,7 @@ public class Image1
 
 public class Principal
 {
-    [Key]
+
     [JsonPropertyName("id")]
     public string Id { get; set; }
 
@@ -167,53 +162,44 @@ public class Principal
     public string[] Characters { get; set; }
 
     [JsonPropertyName("endYear")]
-    public int EndYear { get; set; }
+    public int? EndYear { get; set; }
 
     [JsonPropertyName("episodeCount")]
-    public int EpisodeCount { get; set; }
+    public int? EpisodeCount { get; set; }
 
     [JsonPropertyName("roles")]
     //public Role[] Roles { get; set; }
     public ICollection<Role> Roles { get; set; }
 
     [JsonPropertyName("startYear")]
-    public int StartYear { get; set; }
+    public int? StartYear { get; set; }
 
     [JsonPropertyName("attr")]
-    public string[] Attr { get; set; }
+    public string[]? Attr { get; set; }
 
     [JsonPropertyName("billing")]
     public int Billing { get; set; }
 
     [JsonPropertyName("disambiguation")]
-    public string Disambiguation { get; set; }
+    public string? Disambiguation { get; set; }
 
     [JsonPropertyName("_as")]
-    public string As { get; set; }
+    public string? As { get; set; }
 
     public override string ToString()
     {
         return $"{Name} as {Characters[0]}";
     }
-
-    [ForeignKey("Result")]
-    public string ResultId { get; set; }
-    public Result Result { get; set; }
 }
 
 public class Role
 {
-    [Key]
-    public int RoleId { get; set; }
-
     [JsonPropertyName("character")]
     public string Character { get; set; }
 
+    [Key]
     [JsonPropertyName("characterId")]
     public string CharacterId { get; set; }
-
-    [ForeignKey("Principal")]
-    public string PrincipalId { get; set; }
-    public Principal Principal { get; set; }
 }
+
 

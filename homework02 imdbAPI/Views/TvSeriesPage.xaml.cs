@@ -1,5 +1,6 @@
 ﻿
 using homework02_imdbAPI.DataModels;
+using homework02_imdbAPI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,8 @@ namespace homework02_imdbAPI.Views
             actorsList.ItemsSource = tvSeries.Principals;
 
             poster.Source = new BitmapImage(new Uri(tvSeries.Image.Url));
+
+            DataSavingService.SaveData(tvSeries);
         }
     }
 }
