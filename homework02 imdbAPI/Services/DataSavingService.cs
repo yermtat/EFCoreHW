@@ -23,7 +23,7 @@ public static class DataSavingService
 
         foreach (var item in result.Principals)
         {
-            Context.Principals.Add(item);        
+            Context.Principals.Add(item);
         }
 
         foreach (var item in result.Principals)
@@ -34,17 +34,9 @@ public static class DataSavingService
             }
         }
 
-        if (result.ParentTitle == null)
-        {
-            result.ParentTitle = new Parenttitle();
-            result.ParentTitle.Id = str;
-            for (int i = 0; i < count; i++)
-            {
-                result.ParentTitle.Id+= str;
-            }
-        }
-        Context.Parenttitles.Add(result.ParentTitle);
+        if (result.ParentTitle != null) Context.Parenttitles.Add(result.ParentTitle);
 
         Context.SaveChanges();
+
     }
 }
